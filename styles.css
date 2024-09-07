@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: "Roboto Mono", monospace;
+}
+.sheet-outer {
+    margin: 0;
+}
+.sheet {
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    page-break-after: always;
+    background-color: aqua;
+}
+.screen {
+    display: none;
+}
+@media screen {
+    body { 
+        background: #e0e0e0 
+    }
+
+    .sheet {
+        background: white;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3); 
+        margin: 5mm auto;
+    }
+
+    .screen {
+        display: block;
+        margin: 5mm auto;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+    }
+}
+.sheet-outer.A4 .sheet { 
+    width: 210mm; 
+    height: 296mm;
+    padding: 10mm;
+    background-image: url('https://www.w3schools.com/cssref/paper.gif');
+}
+.hidden { display: none }
+
+/* Base styles for the sheet */
+.sheet {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns by default */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows by default */
+    gap: 0px; /* gap between sections */
+    width: 210mm;
+    height: 297mm;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    padding: 0px;
+}
+.sheet section {
+    position: relative;
+    display: flex;
+    /* align-items: center; */
+    /* text-align: center; */
+    /* justify-content: center; */
+    border: thin solid #ccce;
+    /* background-color: #f9f9f9; */
+    padding: 20px;
+}
+section div.page-number {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.8em;
+    color: #999;
+}
+/* BEGIN CONTENT STYLES */
+p.text, p.chords {
+    margin: 0;
+    padding: 0;
+    line-height: 0.9; /* Minimal line spacing */
+}
+p.text {
+    color: black;
+}
+p.chords {
+    font-weight: bold;
+    color: #ff0000; /* Optional chord color */
+    white-space: pre; /* Ensure chords align properly */
+}
+p.separator {
+    font-size: 0.7em;
+    color: #999;
+    line-height: 0;
+}
+span.artist {
+    font-size: 0.7em;
+    color: #999;
+}
+span.artist::before {
+    content: " - ";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+/* END CONTENT STYLES */
+/* BEGIN FORM STYLES */
+details { padding: 5px; }
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px auto;
+    font-size: 16px;
+}
+form label, form input {
+    flex: 1 1 100px;
+    margin-right: 10px;
+    text-align: right;
+}
+form input[type="button"] {
+    flex: 1 1 100%;
+    padding: 5px;
+}
+@media (min-width: 350px) { form { width: 350px; } }
+@media (min-width: 650px) { form { width: 650px; } }
+/* @media (min-width: 950px) { form { width: 950px; } } */
+/* END FORM STYLES */
