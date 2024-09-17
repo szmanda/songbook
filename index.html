@@ -6,9 +6,24 @@
     <title>Śpiewnik Gitarkowy</title>
     <link rel="stylesheet" href="styles.css">
     <script>globalThis.songs = [];</script>
-    <script src="./songs/NicWięcej.js"></script>
-    <script src="./songs/Lipka.js"></script>
+    <script src="./songs/BardzoSmutnaPiosenkaRetro.js"></script>
+    <script src="./songs/BieszczadzkieAnioły.js"></script>
+    <script src="./songs/BluesDlaMałej.js"></script>
+    <script src="./songs/CzarnyBluesOCzwartejNadRanem.js"></script>
+    <script src="./songs/GóryToJestTo.js"></script>
+    <script src="./songs/Jak.js"></script>
+    <script src="./songs/JakiByłTenDzień.js"></script>
+    <script src="./songs/JestJużCiemno.js"></script>
     <script src="./songs/Kamienie.js"></script>
+    <script src="./songs/Lipka.js"></script>
+    <script src="./songs/LubięMówićZTobą.js"></script>
+    <script src="./songs/Łemata.js"></script>
+    <script src="./songs/NicWięcej.js"></script>
+    <script src="./songs/Oranżada.js"></script>
+    <script src="./songs/PejzażeHarysymowiczowskie.js"></script>
+    <script src="./songs/PorąbanaNoc.js"></script>
+    <script src="./songs/Śpiewy.js"></script>
+    <script src="./songs/WindOfChange.js"></script>
 </head>
 <body>
     <!-- Form for layout changes -->
@@ -17,22 +32,23 @@
             <summary>Layout Options</summary>
             <form>
                 <label for="columns">Columns:</label>
-                <input type="number" id="columns" name="columns" value="2" min="1">
+                <input type="number" id="columns" name="columns" value="4" min="1">
                 <label for="rows">Rows:</label>
-                <input type="number" id="rows" name="rows" value="2" min="1">
+                <input type="number" id="rows" name="rows" value="1" min="1">
                 <label for="width">Width:</label>
                 <input type="number" id="width" name="width" value="297" min="25">
                 <label for="height">Height:</label>
                 <input type="number" id="height" name="height" value="210" min="25">
                 <label for="fontSize">Font Size:</label>
-                <input type="number" id="fontSize" name="fontSize" value="11" min="1">
+                <input type="number" id="fontSize" name="fontSize" value="9" min="1">
                 <label for="lines">Lines:</label>
-                <input type="number" id="lines" name="lines" value="32" min="1">
+                <!-- <input type="number" id="lines" name="lines" value="32" min="1"> -->
+                <input type="number" id="lines" name="lines" value="82" min="1">
                 <label for="ordFront">Page Order front:</label>
-                <input type="text" id="ordFront" name="pages" value="1,-1,3,-3">
+                <input type="text" id="ordFront" name="pages" value="-1,1,-3,3">
                 <!-- <input type="text" id="ordFront" name="pages" value="1,2,3,4,5,6"> -->
                 <label for="ordBack">Page Order back:</label>
-                <input type="text" id="ordBack" name="pages" value="2,-2,4,-4">
+                <input type="text" id="ordBack" name="pages" value="-2,2,-4,4">
                 <!-- <input type="text" id="ordBack" name="pages" value="7,8,9,10,11,12"> -->
                 <input type="button" value="Refresh" onclick="refresh()">
             </form>
@@ -52,9 +68,10 @@
     <script>
         var loadSongs = function (linesPerPage = 41) {
             document.getElementById('source-content').innerHTML = '';
-            Object.keys(globalThis.songs).forEach(song => {                
-                parseSong('source-content', globalThis.songs[song], linesPerPage);
-            });
+            songList = Object.keys(globalThis.songs);
+            songList.forEach(song => parseSong('source-content', globalThis.songs[song], linesPerPage));
+            subpageCount = document.getElementById('source-content').childNodes.length;
+            console.log(`Loaded ${songList.length} songs, onto ${subpageCount} subpages`);
         }
         
         var refresh = function () {

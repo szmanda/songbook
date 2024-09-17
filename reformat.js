@@ -4,15 +4,18 @@ function reformatToPages(selector, subpageCount, orderFront, orderBack) {
     const sheetOuter = document.getElementById('sheet-outer');
     const allPages = source.querySelectorAll(selector);
     const availablePages = Array.from(allPages).map((page, index) => index);
-    console.log(allPages.length);
-    for (let i = 0; i < allPages.length % subpageCount; i++) {
+    let emptyPages = allPages.length % (subpageCount * 2);
+    emptyPages = (emptyPages === 0) ? 0 : (subpageCount * 2) - emptyPages;
+    console.log(`There are ${allPages.length} pages, ${emptyPages} empty pages needed`);
+    for (let i = 0; i < emptyPages; i++) {
         availablePages.push(100000); // Add empty pages to fill the last sheet
     }
 
     // Helper to resolve negative indices (-1 means the last sheet, etc.)
     const resolveIndex = (index) => {
         const length = availablePages.length;
-        if (index > length) return 10000; // return an out-of-bounds index
+        if (index > length) {
+            return 10000}; // return an out-of-bounds index
         if (index < 0) return availablePages[length + index]; // Convert to positive index
         return availablePages[index - 1]; // Convert to 0-based index
     };

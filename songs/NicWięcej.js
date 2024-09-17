@@ -2,6 +2,7 @@ globalThis.songs["NicWięcej"] = {
     "title": "Nic Więcej",
     "artist": "Kwiat Jabłoni",
     "text": `
+{Zwrotka 1:}
 a
 Nie mamy o czym myśleć ani o czym pisać
 d                   e
@@ -18,16 +19,17 @@ a
 Nic się nie stało słowa ciekną miał być ogień
 d                       e
 My mamy pustki w głowach głowy w telefonie
- 
-C       G              a
-A gdyby tak choć jeden raz
+{Refren:}
+   C       G              a
+   A gdyby tak choć jeden raz
           F
-Nam się zatrzęsła ziemia
-C       G              a
-Przerwała sen oderwała nas
-E
-Od niechcenia
- 
+   Nam się zatrzęsła ziemia
+   C       G              a
+   Przerwała sen oderwała nas
+   E
+   Od niechcenia
+
+{Zwrotka powt.: Nic nas nie ziębi ani, ...} 2x
 a                    d
 Nic nas nie ziębi ani, Nic nas nie parzy
        F                    E
@@ -37,15 +39,7 @@ Nie ma miłości ani, Nie ma rozpaczy
        F                    E
 Przezroczysty świat, Przezroczysty świat
 
-a                    d
-Nic nas nie ziębi ani, Nic nas nie parzy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
-a                  d
-Nie ma miłości ani, Nie ma rozpaczy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
-
+{Zwrotka 2:}
 a
 Wierzę we wszystko to co ekran mi wyświetla
 d                      e
@@ -63,33 +57,9 @@ Wielkie narracje ideały porzucone
 d                e
 To nic nie znaczy chodźmy wszyscy w inną stronę
  
- 
-C       G              a
-A gdyby tak choć jeden raz
-          F
-Nam się zatrzęsła ziemia
-C       G              a
-Przerwała sen oderwała nas
-E
-Od niechcenia
- 
- 
-a                    d
-Nic nas nie ziębi ani, Nic nas nie parzy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
-a                  d
-Nie ma miłości ani, Nie ma rozpaczy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
+{Refren: A gdyby tak, choć jeden raz...}
 
-a                    d
-Nic nas nie ziębi ani, Nic nas nie parzy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
-a                  d
-Nie ma miłości ani, Nie ma rozpaczy
-       F                    E
-Przezroczysty świat, Przezroczysty świat
+{Zwrotka powt.: Nic nas nie ziębi ani, ...} 2x
+
 `,
 };

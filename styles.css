@@ -54,16 +54,18 @@ body {
     box-sizing: border-box;
     border: 1px solid #000;
     padding: 0px;
+    white-space: pre-wrap;
 }
 .sheet section {
     position: relative;
     display: flex;
+    flex-grow: 1;
     /* align-items: center; */
     /* text-align: center; */
     /* justify-content: center; */
     border: thin solid #ccce;
     /* background-color: #f9f9f9; */
-    padding: 20px;
+    padding: 10px;
 }
 section div.page-number {
     position: absolute;
@@ -84,9 +86,9 @@ p.text {
 p.chords {
     font-weight: bold;
     color: #ff0000; /* Optional chord color */
-    white-space: pre; /* Ensure chords align properly */
+    white-space: pre-wrap; /* Ensure chords align properly */
 }
-p.separator {
+p.separator, p.comment {
     font-size: 0.7em;
     color: #999;
     line-height: 0;

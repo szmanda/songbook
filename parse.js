@@ -4,22 +4,23 @@ function parseSong(outputSelector, song, linesPerPage = 37, append = true) {
     const title = song.title;
     const artist = song.artist;
     const lines = song.text.split('\n');
-    const maxEmptyLinesAtPageBreak = 7;
-    const chordPattern = /^(\s|([A-H]|[a-h])[0-9]*[#b]?[mM]?(maj|min|dim|aug|sus)?[0-9]*)+$/; // Regex for chord patterns
-    const separatorPattern = /\{(zwrotka|verse|refren|chorus|mostek|bridge|przedrefren|pre-chorus|zakończenie|outro|coda|wstęp|intro|solówka|solo|instrumental|interludium|interlude|przejście|transition|break|koda|finale|powtórzenie|refrain|---)/i;
-    const integratedChordsPattern = /(\[([A-H]|[a-h])[0-9]*[#b]?[mM]?(maj|min|dim|aug|sus)?[0-9]*\])/g;
+    const maxEmptyLinesAtPageBreak = 9;
+    const chordPattern = /^(\s|([A-H]|[a-h])(is)?[#b]?[0-9]*[mM]?(maj|min|dim|aug|sus)?[0-9]*\/?\+?)+$/; // Regex for chord patterns
+    const separatorPattern = /\{(zwrotka|verse|refren|chorus|mostek|bridge|przedrefren|pre-chorus|zakończenie|outro|coda|wstęp|intro|solówka|solo|instrumental|interludium|interlude|przejście|transition|break|koda|finale|powtórzenie|refrain|solo|---)/i;
+    const integratedChordsPattern = /(\[(([A-H]|[a-h])(is)?[#b]?[0-9]*[mM]?(maj|min|dim|aug|sus)?[0-9]*\/?\+?)+\])/g;
 
+    const commentPattern = /^(\{)/;
     let parsedHTML = '<section class="content-page"><article>';
     count = 2; // lines per page
     const lastPage = document
         .getElementById(outputSelector)
         .querySelector('section:last-child');
     if (append && lastPage) {
-        count = lastPage.querySelectorAll('p').length + 2;
+        count = lastPage.querySelectorAll('p').length + 3;
         if (count + maxEmptyLinesAtPageBreak > linesPerPage) {
             return parseSong(outputSelector, song, linesPerPage, false);
         }
-        parsedHTML = lastPage.outerHTML.replace('</article></section>', '') + "<br><br>";
+        parsedHTML = lastPage.outerHTML.replace('</article></section>', '') + "<br>";
         lastPage.remove();
         lines.splice(0, 0, '---');
     }
@@ -31,6 +32,7 @@ function parseSong(outputSelector, song, linesPerPage = 37, append = true) {
         if (line === '' ) return;
         type = chordPattern.test(line) ? 'chords'
             : separatorPattern.test(line) ? 'separator'
+            : commentPattern.test(line) ? 'comment'
             : integratedChordsPattern.test(line) ? 'integrated-chords'
             : 'text';
         
@@ -38,8 +40,13 @@ function parseSong(outputSelector, song, linesPerPage = 37, append = true) {
         if (type === 'separator') {    
             while (linesToNextSeparator + i < lines.length
                 && !separatorPattern.test(lines[i + 1 + linesToNextSeparator])
-            ) linesToNextSeparator++;
-            console.log('linesToNextSeparator', linesToNextSeparator);
+            ) {
+                linesToNextSeparator++;
+                if (integratedChordsPattern.test(lines[i + 1 + linesToNextSeparator])) {
+                    linesToNextSeparator++;
+                }
+            }
+            // console.log('linesToNextSeparator', linesToNextSeparator);
             space = linesPerPage - count;
             if ((space < maxEmptyLinesAtPageBreak)
                 && (space < linesToNextSeparator)) {
@@ -48,7 +55,7 @@ function parseSong(outputSelector, song, linesPerPage = 37, append = true) {
         }
         
         if (count > linesPerPage - 1 * (type === 'chords')) {
-            console.log('pagebreak');
+            // console.log('pagebreak');
             parsedHTML += '</article></section><section class="content-page"><article>';
             count = 0;
         }
@@ -57,12 +64,14 @@ function parseSong(outputSelector, song, linesPerPage = 37, append = true) {
             let chordsLine = '';
             line.match(integratedChordsPattern).forEach(chord => {
                 idx = line.search('\\'+chord);
-                console.log(line, chord, idx, line.search(chord));
+                // console.log(line, chord, idx, line.search(chord));
                 line = line.replace(chord, '');
                 for (let i = chordsLine.length; i < idx; i++) chordsLine += ' ';
                 chordsLine += chord.replace(/\[|\]/g, '')
             });
             textLine = line.replace(integratedChordsPattern, '');
+            textLine = textLine.replace(/\s/g, '&nbsp;');
+            console.log('|'+chordsLine+"|", "|"+textLine+"|");
             parsedHTML += `<p class="chords">${chordsLine}</p>`;
             parsedHTML += `<p class="text">${textLine}</p>`;
             count += 2;
