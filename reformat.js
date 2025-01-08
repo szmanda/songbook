@@ -39,6 +39,7 @@ function reformatToPages(selector, subpageCount, orderFront, orderBack) {
             } else {
                 // Append empty page if the index is out of bounds
                 fragment.appendChild(createEmptyPage());
+                console.warn('This should not happen, empty pages should be added already.');
             }
         }
         return fragment;
@@ -62,9 +63,9 @@ function reformatToPages(selector, subpageCount, orderFront, orderBack) {
     for (let page = 0; page < pagesNeeded; page += 2) {
         const frontSubpages = loadPagesInOrder(orderFront);
         sheetOuter.appendChild(sheetNode.cloneNode(true)).appendChild(frontSubpages);
-        console.log('available', availablePages);
+        // console.log('available', availablePages);
         // Stupid JS, can't do min(array) directly
-        console.warn(orderBack.map(i => resolveIndex(i)), availablePages);
+        // console.warn(orderBack.map(i => resolveIndex(i)), availablePages);
         if (!(orderBack.map(i => resolveIndex(i)).sort((a, b) => a - b)[0] in availablePages)) {
             console.log('did break');
             break;
@@ -76,7 +77,7 @@ function reformatToPages(selector, subpageCount, orderFront, orderBack) {
 
         const renderedSubpages = orderFront.concat(orderBack).map(i => resolveIndex(i));
         renderedSubpages.sort((a, b) => b - a);
-        console.log('remove', renderedSubpages);
+        // console.log('remove', renderedSubpages);
         for (let i = 0; i < renderedSubpages.length; i++) {
             availablePages.find((element, index) => {
                 if (element === renderedSubpages[i]) {
