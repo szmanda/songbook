@@ -53,17 +53,19 @@ body {
     height: 297mm;
     box-sizing: border-box;
     border: 1px solid #000;
-    padding: 0px;
+    padding: 10px;
+    white-space: pre-wrap;
 }
 .sheet section {
     position: relative;
     display: flex;
+    flex-grow: 1;
     /* align-items: center; */
     /* text-align: center; */
     /* justify-content: center; */
     border: thin solid #ccce;
     /* background-color: #f9f9f9; */
-    padding: 20px;
+    padding: 10px;
 }
 section div.page-number {
     position: absolute;
@@ -76,7 +78,7 @@ section div.page-number {
 p.text, p.chords {
     margin: 0;
     padding: 0;
-    line-height: 0.9; /* Minimal line spacing */
+    line-height: 1; /* Minimal line spacing */
 }
 p.text {
     color: black;
@@ -84,9 +86,9 @@ p.text {
 p.chords {
     font-weight: bold;
     color: #ff0000; /* Optional chord color */
-    white-space: pre; /* Ensure chords align properly */
+    white-space: pre-wrap; /* Ensure chords align properly */
 }
-p.separator {
+p.separator, p.comment {
     font-size: 0.7em;
     color: #999;
     line-height: 0;
